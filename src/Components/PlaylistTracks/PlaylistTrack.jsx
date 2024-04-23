@@ -9,14 +9,14 @@ import { addToLikeCart, loadFromLocalStorage, removeFromLikedSongs } from '../..
 import './PlaylistTracks.scss'
 import { useRef, useState } from 'react';
 import Player from '../Player/Player';
- const PlaylistTrack = () => {
+const PlaylistTrack = () => {
   const selectedPlaylist = JSON.parse(localStorage.getItem('selectedPlaylist'));
   const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
   const dispatch = useDispatch();
 
   const likeCart = loadFromLocalStorage("likeCart");
-// console.log(selectedPlaylist);
-  
+  // console.log(selectedPlaylist);
+
   function formatDuration(duration_ms) {
     const duration_s = duration_ms / 1000;
 
@@ -77,49 +77,54 @@ import Player from '../Player/Player';
             </Link>
           </div>
         </div>
-        <button className=' xl:hidden lg:hidden md:hidden' > <i className="fa-solid fa-arrow-left fa-xl"></i></button>
+        <Link to="/" className=' xl:hidden lg:hidden md:hidden' > <i className="fa-solid fa-arrow-left fa-xl"></i></Link>
         <div className='mt-6 flex gap-4'>
           <div>
 
-            <img className='max-md:p-2 max-md:w-1/2' src={selectedPlaylist.images[0].url} alt="" />
+            <img className='max-md:p-2 ' src={selectedPlaylist.images[0].url} alt="" />
           </div>
-          <div className='p-4 '>
-            <h3>Public playlist</h3>
-            <h1 className='name'>{selectedPlaylist.name}</h1>
+          <div className='p-4 mt-4'>
+            <h3 className='text-sm font-bold'>Public playlist</h3>
+            <h1 className='text-8xl font-semibold line-clamp-1'>{selectedPlaylist.name}</h1>
+            <div>
+            <h1 className='text-2xl mt-8'>Julia Wolf, ayokay, Khalid and more</h1>
+            <h1 className='textt'>Made For you {playlistTracks.length } songs , 3hr 01m</h1>
           </div>
+          </div>
+         
         </div>
       </header>
 
       <div>
-          {playlistTracks.map((track, index) => {
-              const isTrackLiked= likeCart.some(song => song.id === track.track.id);
-            return(
+        {playlistTracks.map((track, index) => {
+          const isTrackLiked = likeCart.some(song => song.id === track.track.id);
+          return (
             <div className='flex w-full items-center gap-4 p-3' key={index}>
-              <img className='cursor-pointer' onClick={()=>togglePlay(track)} src={track.track.album.images[2].url} alt="" />
+              <img className='cursor-pointer' onClick={() => togglePlay(track)} src={track.track.album.images[2].url} alt="" />
               <div className='text-white '>
                 <h3>
-                {track.track.name} - {track.track.artists.map(artist => artist.name).join(', ')}
+                  {track.track.name} - {track.track.artists.map(artist => artist.name).join(', ')}
 
                 </h3>
-                <audio ref={audioRef} onPause={pauseTrack}/>
+                <audio ref={audioRef} onPause={pauseTrack} />
 
               </div>
 
               {isTrackLiked ? (
-             <div className=''>
+                <div className=''>
 
-               <img className='cursor-pointer ' onClick={() => removeFromLike(track.track.id)} src={like} alt="" />
-               
-             </div>
+                  <img className='cursor-pointer ' onClick={() => removeFromLike(track.track.id)} src={like} alt="" />
+
+                </div>
               ) : (
                 <img className='cursor-pointer' onClick={() => addToLikeCartt(track.track)} src={unlike} alt="" />
-                
-              )} 
-                          <span>{formatDuration(track.track.duration_ms)}</span>
 
-                    </div>
-            )
- })}
+              )}
+              <span className='text-white'>{formatDuration(track.track.duration_ms)}</span>
+
+            </div>
+          )
+        })}
       </div>
       <Player isPlaying={isPlaying} />
     </div>
