@@ -60,10 +60,10 @@ const navigate = useNavigate();
               {playlist.slice(0,4).map((item,index) => (
                 <div  onClick={() =>handleClick(item, item.id)} key={index} className='card border hover:bg-[#272727]  w-full cursor-pointer max-md:w-full max-lg:w-full max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
                   <div>
-                    <img className='p-3 card-img' src={item.images[0].url} alt="" />
+                    <img className='p-3 card-img max-sm:w-full max-md:p-8' src={item.images[0].url} alt="" />
                   </div>
                   <h2 className='text-white  font-semibold p-2  tracking-wide capitalize max-xl:p-3 max-md:p-3'>{item.name}</h2>
-                  <p className='text-white p-2 line-clamp-3 text-sm  max-md:hidden max-xl:hidden'>{item.description}</p>
+                  <p className='text-white p-2 line-clamp-3 text-sm  max-md:hidden   max-xl:hidden'>{item.description}</p>
                 </div>
               ))}
             </div>
