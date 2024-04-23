@@ -8,6 +8,7 @@ import like from '../../assets/images/Heart_Fill_XS.svg'
 import { addToLikeCart, loadFromLocalStorage, removeFromLikedSongs } from '../../app/like/LikeSlice';
 import './PlaylistTracks.scss'
 import { useRef, useState } from 'react';
+import Player from '../Player/Player';
  const PlaylistTrack = () => {
   const selectedPlaylist = JSON.parse(localStorage.getItem('selectedPlaylist'));
   const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
@@ -30,17 +31,21 @@ import { useRef, useState } from 'react';
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  const togglePlay = (item) => {
-    if (isPlaying) {
-      audioRef.current.pause();
+  const togglePlay = (track) => {
+    if (!isPlaying) {
+      audioRef.current.src = track.track.preview_url;
+      audioRef.current.play();
     } else {
-      // audioRef.current.play();
+      audioRef.current.pause();
     }
     setIsPlaying(!isPlaying);
-    localStorage.setItem('selectedTrack', JSON.stringify(item))
+    localStorage.setItem('selectedTrack', JSON.stringify(track));
   };
 
-
+  const pauseTrack = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
 
   const addToLikeCartt = (track) => {
     dispatch(addToLikeCart(track));
@@ -72,7 +77,7 @@ import { useRef, useState } from 'react';
             </Link>
           </div>
         </div>
-        <button className=' xl:hidden lg:hidden md:hidden' > <i class="fa-solid fa-arrow-left fa-xl"></i></button>
+        <button className=' xl:hidden lg:hidden md:hidden' > <i className="fa-solid fa-arrow-left fa-xl"></i></button>
         <div className='mt-6 flex gap-4'>
           <div>
 
@@ -96,9 +101,8 @@ import { useRef, useState } from 'react';
                 {track.track.name} - {track.track.artists.map(artist => artist.name).join(', ')}
 
                 </h3>
-                <audio  ref={audioRef}>
-                  <source src={track.track.preview_url} type="audio/mpeg" />
-                </audio>
+                <audio ref={audioRef} onPause={pauseTrack}/>
+
               </div>
 
               {isTrackLiked ? (
@@ -117,6 +121,7 @@ import { useRef, useState } from 'react';
             )
  })}
       </div>
+      <Player isPlaying={isPlaying} />
     </div>
   );
 

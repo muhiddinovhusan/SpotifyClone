@@ -4,6 +4,7 @@ import useRecentPlayed from '../../hooks/useRecentPlayed';
 import { useNavigate } from 'react-router-dom';
 import Header from './../Header/Header';
 import useMadeForYou from '../../hooks/useMadeForYou';
+import { saveToLocalStorage } from '../../app/like/LikeSlice';
 
 const Main = () => {
 
@@ -17,7 +18,7 @@ const Main = () => {
 
 const navigate = useNavigate();
   const handleClick = (item,id) => {
-    localStorage.setItem('selectedPlaylist', JSON.stringify(item));
+    saveToLocalStorage('selectedPlaylist', item);
     navigate(`/tracks/${id}`);
   };
   
