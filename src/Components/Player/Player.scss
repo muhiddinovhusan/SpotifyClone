@@ -1,0 +1,13 @@
+.Player {
+    
+        position: fixed;
+        height: 70px;
+        bottom: 0;
+        left: 0; /* İstenen pozisyonda ayarlayabilirsiniz */
+        width: 100%; /* Genişlik ayarları */
+        background-color: #181818; /* Arka plan rengi */
+        z-index: 1000; /* Diğer elementlerin üzerinde olmasını sağlar */
+     
+      
+
+}

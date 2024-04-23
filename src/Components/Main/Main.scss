@@ -1,0 +1,57 @@
+.Main {
+   .card {
+      cursor: pointer;
+      
+      display: block;
+      background-color: #1b1b1b;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      border: 0;
+       
+   }
+
+   .card h2 {
+      font-size: 14px;
+      line-height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+   }
+
+   .card-img {
+      width: 100%;
+border-radius: 18px ;
+   }
+}
+
+@media screen and (max-width:430px) {
+   .Main {
+      width: 100%; 
+      .playlist {
+
+         display: grid;
+         
+         grid-template-columns: auto auto;
+
+         .card {
+            margin: auto 0 30px 20px;
+         }
+      }
+   }
+
+}
+
+@media screen and (max-width: 768px) {
+
+   .Main{
+      .playlist{
+         display: grid;
+         grid-template-columns: auto auto auto;
+         .card{
+            margin: auto;
+            width: 245px;
+         }
+      }
+   }
+}
