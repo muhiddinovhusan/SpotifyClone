@@ -78,17 +78,17 @@ const PlaylistTrack = () => {
           </div>
         </div>
         <Link to="/" className=' xl:hidden lg:hidden md:hidden' > <i className="fa-solid fa-arrow-left fa-xl"></i></Link>
-        <div className='mt-6 flex gap-4'>
-          <div>
+        <div className='mt-6 flex gap-4 flex-wrap'>
+          <div className='max-md:block'>
 
-            <img className='max-md:p-2 ' src={selectedPlaylist.images[0].url} alt="" />
+            <img className='max-md:p-2 max-md:w-full max-md:block' src={selectedPlaylist.images[0].url} alt="" />
           </div>
-          <div className='p-4 mt-4'>
+          <div className='p-4 mt-4 '>
             <h3 className='text-sm font-bold'>Public playlist</h3>
-            <h1 className='text-8xl font-semibold line-clamp-1'>{selectedPlaylist.name}</h1>
+            <h1 className='text-8xl font-semibold line-clamp-1 max-md:text-5xl'>{selectedPlaylist.name}</h1>
             <div>
-            <h1 className='text-2xl mt-8'>Julia Wolf, ayokay, Khalid and more</h1>
-            <h1 className='textt'>Made For you {playlistTracks.length } songs , 3hr 01m</h1>
+            <h1 className='text-2xl mt-8 max-md:text-1xl  '>Julia Wolf, ayokay, Khalid and more</h1>
+            <h1 className='textt max-md:text-sm max-md:mt-3 text-gray-400' >Made For you {playlistTracks.length } songs , 3hr 01m</h1>
           </div>
           </div>
          
