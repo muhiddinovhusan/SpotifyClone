@@ -5,19 +5,13 @@ import like from '../../assets/images/Heart_Fill_XS.svg'
 import { useEffect, useRef, useState } from "react";
 
 const LikedSongs = () => {
-    const dispatch = useDispatch()
-    // const [likeCart, setLikeCart] = useState([]);
-    // const likeCart = loadFromLocalStorage("likeCart");
-    // useEffect(()=>{
-    //   setLikeCart(loadFromLocalStorage("likeCart"));
-    // }, [likeCart])
-    const removeFromLike = (trackId) => {
-        dispatch(removeFromLikedSongs(trackId));
-      }
-      console.log(likeCart);
-      
-      const likeCart = useSelector(state => state.like.likeCart)
+  const dispatch = useDispatch()
+  const likeCart = useSelector(state => state.like.likeCart)
 
+  const removeFromLike = (trackId) => {
+    dispatch(removeFromLikedSongs(trackId));
+  }
+  console.log(likeCart);
 
   function formatDuration(duration_ms) {
     const duration_s = duration_ms / 1000;
@@ -49,9 +43,9 @@ const LikedSongs = () => {
   };
 
 
-    return (
+  return (
     <div>
-  <header  className='text-black py-3 bg-gradient-to-b from-indigo-800  pt-3 px-5 pb-20  '>
+      <header className='text-black py-3 bg-gradient-to-b from-indigo-800  pt-3 px-5 pb-20  '>
         <div className="top flex justify-between sticky top-0 z-20 max-md:hidden bg-inherit w-full ">
           <div className="left flex items-center gap-3  ">
             <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
@@ -73,29 +67,41 @@ const LikedSongs = () => {
           </div>
         </div>
         <button className=' xl:hidden lg:hidden md:hidden' > back</button>
-     
+
       </header>
       <div className="px-5 mt-10  ">
-            {likeCart.length > 0 ? (likeCart.map((item, i) => (
-              <div key={i} className="text-white flex items-center justify-between p-2 ">
-                   <img className="cursor-pointer"  onClick={() =>togglePlay(item)} src={item.album.images[2].url} alt="" />
-                   <div  >
-                    <p>{item.album.name}</p>
-                    <p>{item.album.artists[0].name}</p>
-                   </div>
-                   <audio ref={audioRef}  onPause={pauseTrack} />
+        {likeCart.length > 0 ? (likeCart.map((item, i) => (
+          <div key={i} className="text-white flex items-center justify-between p-2 ">
+            {item.album && item.album.images && item.album.images[2] && (
+              <img
+                className="cursor-pointer"
+                onClick={() => togglePlay(item)}
+                
+                src={item.album.images[2].url}
+                alt=""
+              />
+            )}      {console.log(item.duration_ms)}
+                         <div  >
+           {item.album && item.album.name && (
+  <p>{item.album.name}</p>
+)}
+{item.album && item.album.artists && (
+        <p>{item.album.artists[0].name}</p>
+      )}
+            </div>
+            <audio ref={audioRef} onPause={pauseTrack} />
 
-                   <div className="flex -mt-7">
+            <div className="flex -mt-7">
 
-                <span className="text-white">{item.name}</span>
-                   </div>
-                <div className="actions -mt-7 cursor-pointer ">
-                  <img  onClick={() => removeFromLike(item.id)}  src={like} alt="" />
-                </div>
-                  <span className="-mt-7">{formatDuration(item.duration_ms)}</span>
-              </div>
-            ))) : (<h1 className="text-white">You don`t have any liked songs yet</h1>)}
+              <span className="text-white">{item.name}</span>
+            </div>
+            <div className="actions -mt-7 cursor-pointer ">
+              <img onClick={() => removeFromLike(item.id)} src={like} alt="" />
+            </div>
+            <span className="-mt-7">{formatDuration(item.duration_ms)}</span>
           </div>
+        ))) : (<h1 className="text-white">You don`t have any liked songs yet</h1>)}
+      </div>
     </div>
   )
 }

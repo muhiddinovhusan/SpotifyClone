@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { loadFromLocalStorage } from '../../app/like/LikeSlice';
 import './Player.scss';
 import { useSelector } from 'react-redux';
 
