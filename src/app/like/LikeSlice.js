@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 export const loadFromLocalStorage = (key) => {
     try {
@@ -11,11 +11,10 @@ export const loadFromLocalStorage = (key) => {
     }
 };
 
-
 const initialState = {
     likeCart: loadFromLocalStorage("likeCart") ?? [],
+    selectedTrack: loadFromLocalStorage("selectedTrack") ?? null,
 };
-
 
 export const saveToLocalStorage = (key, value) => {
     try {
@@ -25,7 +24,6 @@ export const saveToLocalStorage = (key, value) => {
         console.error("Error saving to localStorage:", error);
     }
 };
-
 
 const likeSlice = createSlice({
     name: "like",
@@ -38,13 +36,13 @@ const likeSlice = createSlice({
         removeFromLikedSongs(state, action) {
             state.likeCart = state.likeCart.filter(song => song.id !== action.payload);
             saveToLocalStorage("likeCart", state.likeCart);
-          },
+        },
+        addToselectedTrack(state, action) {
+            state.selectedTrack = action.payload;
+            saveToLocalStorage("selectedTrack", state.selectedTrack);
+        },
     },
 });
 
-
-export const { reducer: likeReducer, actions: likeActions } = likeSlice;
-
-export const { addToLikeCart } = likeActions;
-
-export const { removeFromLikedSongs } = likeActions;
+export const { addToLikeCart, removeFromLikedSongs, addToselectedTrack } = likeSlice.actions;
+export const likeReducer = likeSlice.reducer;

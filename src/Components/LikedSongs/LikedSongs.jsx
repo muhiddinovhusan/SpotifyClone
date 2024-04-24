@@ -1,17 +1,24 @@
 import { Bell, ChevronLeft, ChevronRight, Link } from "lucide-react"
 import { loadFromLocalStorage, removeFromLikedSongs } from "../../app/like/LikeSlice";
-import { useDispatch } from "react-redux";
-import unlike from '../../assets/images/Heart_Fill_XSS.svg'
+import { useDispatch, useSelector } from "react-redux";
 import like from '../../assets/images/Heart_Fill_XS.svg'
+import { useEffect, useRef, useState } from "react";
 
 const LikedSongs = () => {
     const dispatch = useDispatch()
-    const likeCart = loadFromLocalStorage("likeCart");
+    // const [likeCart, setLikeCart] = useState([]);
+    // const likeCart = loadFromLocalStorage("likeCart");
+    // useEffect(()=>{
+    //   setLikeCart(loadFromLocalStorage("likeCart"));
+    // }, [likeCart])
     const removeFromLike = (trackId) => {
         dispatch(removeFromLikedSongs(trackId));
       }
       console.log(likeCart);
       
+      const likeCart = useSelector(state => state.like.likeCart)
+
+
   function formatDuration(duration_ms) {
     const duration_s = duration_ms / 1000;
 
@@ -22,6 +29,26 @@ const LikedSongs = () => {
     return `${minutes}:${formatted_seconds}`;
 
   }
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const togglePlay = (track) => {
+    if (!isPlaying) {
+      audioRef.current.src = track.preview_url;
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+    setIsPlaying(!isPlaying);
+    localStorage.setItem('selectedTrack', JSON.stringify(track));
+  };
+
+  const pauseTrack = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
+
     return (
     <div>
   <header  className='text-black py-3 bg-gradient-to-b from-indigo-800  pt-3 px-5 pb-20  '>
@@ -51,11 +78,13 @@ const LikedSongs = () => {
       <div className="px-5 mt-10  ">
             {likeCart.length > 0 ? (likeCart.map((item, i) => (
               <div key={i} className="text-white flex items-center justify-between p-2 ">
-                   <img src={item.album.images[2].url} alt="" />
+                   <img className="cursor-pointer"  onClick={() =>togglePlay(item)} src={item.album.images[2].url} alt="" />
                    <div  >
                     <p>{item.album.name}</p>
                     <p>{item.album.artists[0].name}</p>
                    </div>
+                   <audio ref={audioRef}  onPause={pauseTrack} />
+
                    <div className="flex -mt-7">
 
                 <span className="text-white">{item.name}</span>

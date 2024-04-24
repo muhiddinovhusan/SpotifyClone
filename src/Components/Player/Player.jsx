@@ -1,25 +1,12 @@
 import { useEffect, useState } from 'react';
 import { loadFromLocalStorage } from '../../app/like/LikeSlice';
 import './Player.scss';
+import { useSelector } from 'react-redux';
 
 const Player = ({ isPlaying }) => {
-  const [track, setTrack] = useState(null);
   const [audioElement, setAudioElement] = useState(null);
 
-  useEffect(() => {
-    const storedTrack = loadFromLocalStorage("selectedTrack");
-    setTrack(storedTrack);
-  }, []); 
-
-  useEffect(() => {
-    if (track && audioElement) {
-      if (isPlaying) {
-        audioElement.play();
-      } else {
-        audioElement.pause();
-      }
-    }
-  }, [isPlaying, track, audioElement]);
+  const selectedTrack = useSelector(state => state.like.selectedTrack);
 
   useEffect(() => {
     const newAudioElement = document.createElement("audio");
@@ -30,11 +17,21 @@ const Player = ({ isPlaying }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (selectedTrack && audioElement) {
+      if (isPlaying) {
+        audioElement.play();
+      } else {
+        audioElement.pause();
+      }
+    }
+  }, [isPlaying, selectedTrack, audioElement]);
+
   return (
     <div className='Player flex justify-center items-center max-lg:bottom-16'>
-      {track ? (
+      {selectedTrack ? (
         <audio id="audioElement" className='w-full' controls >
-          <source src={track.track.preview_url} type='audio/mpeg'/>
+          <source src={selectedTrack.preview_url || selectedTrack.track.preview_url} type='audio/mpeg'/>
         </audio>
       ) : (
         <p>No track selected</p>

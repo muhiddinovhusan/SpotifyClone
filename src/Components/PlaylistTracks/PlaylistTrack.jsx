@@ -1,21 +1,31 @@
 import useTracks from './../../hooks/useTracks';
 import { Bell, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import unlike from '../../assets/images/Heart_Fill_XSS.svg'
 import like from '../../assets/images/Heart_Fill_XS.svg'
 
-import { addToLikeCart, loadFromLocalStorage, removeFromLikedSongs } from '../../app/like/LikeSlice';
+import { addToLikeCart,  addToselectedTrack,  removeFromLikedSongs } from '../../app/like/LikeSlice';
 import './PlaylistTracks.scss'
-import { useRef, useState } from 'react';
+import {  useRef, useState } from 'react';
 import Player from '../Player/Player';
 const PlaylistTrack = () => {
+  // const [selectedPlaylist, setSelectedPlaylist] = useState([]);
+
+  // useEffect(() => {
+  //   const track = loadFromLocalStorage("selectedPlaylist");
+  //   setSelectedPlaylist(track);
+  // }, [selectedPlaylist]); // 
+
+
+
   const selectedPlaylist = JSON.parse(localStorage.getItem('selectedPlaylist'));
   const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
   const dispatch = useDispatch();
 
-  const likeCart = loadFromLocalStorage("likeCart");
+  // const likeCart = loadFromLocalStorage("likeCart");
   // console.log(selectedPlaylist);
+  const likeCart = useSelector(state => state.like.likeCart)
 
   function formatDuration(duration_ms) {
     const duration_s = duration_ms / 1000;
@@ -39,7 +49,9 @@ const PlaylistTrack = () => {
       audioRef.current.pause();
     }
     setIsPlaying(!isPlaying);
-    localStorage.setItem('selectedTrack', JSON.stringify(track));
+    // localStorage.setItem('selectedTrack', JSON.stringify(track));
+    dispatch(addToselectedTrack(track))
+    console.log(track)
   };
 
   const pauseTrack = () => {
@@ -79,25 +91,27 @@ const PlaylistTrack = () => {
         </div>
         <Link to="/" className=' xl:hidden lg:hidden md:hidden' > <i className="fa-solid fa-arrow-left fa-xl"></i></Link>
         <div className='mt-6 flex gap-4 flex-wrap'>
-          <div className='max-md:block'>
+        {selectedPlaylist && selectedPlaylist.images && selectedPlaylist.images.length > 0 && (
+  <div className='max-md:block'>
+    <img className='max-md:p-2 max-md:w-full max-md:block' src={selectedPlaylist.images[0].url} alt="" />
+  </div>
+)}
 
-            <img className='max-md:p-2 max-md:w-full max-md:block' src={selectedPlaylist.images[0].url} alt="" />
-          </div>
           <div className='p-4 mt-4 '>
             <h3 className='text-sm font-bold'>Public playlist</h3>
             <h1 className='text-8xl font-semibold line-clamp-1 max-md:text-5xl'>{selectedPlaylist.name}</h1>
             <div>
-            <h1 className='text-2xl mt-8 max-md:text-1xl  '>Julia Wolf, ayokay, Khalid and more</h1>
-            <h1 className='textt max-md:text-sm max-md:mt-3 text-gray-400' >Made For you {playlistTracks.length } songs , 3hr 01m</h1>
+              <h1 className='text-2xl mt-8 max-md:text-1xl  '>Julia Wolf, ayokay, Khalid and more</h1>
+              <h1 className='textt max-md:text-sm max-md:mt-3 text-gray-400' >Made For you {playlistTracks.length} songs , 3hr 01m</h1>
+            </div>
           </div>
-          </div>
-         
+
         </div>
       </header>
 
       <div>
         {playlistTracks.map((track, index) => {
-          const isTrackLiked = likeCart.some(song => song.id === track.track.id);
+          const isTrackLiked = likeCart && likeCart.some(song => song.id === track.track.id);
           return (
             <div className='flex w-full items-center gap-4 p-3' key={index}>
               <img className='cursor-pointer' onClick={() => togglePlay(track)} src={track.track.album.images[2].url} alt="" />
