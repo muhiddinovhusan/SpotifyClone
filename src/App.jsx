@@ -12,6 +12,7 @@ import { ClientID, ClientSecret, token, topMixesPlaylists } from './app/data';
 import store from './app/like/store';
 import PlaylistTrack from './Components/PlaylistTracks/PlaylistTrack';
 import LikedSongs from './Components/LikedSongs/LikedSongs';
+import Footer from './Components/Footer/Footer';
 
 const App = () => {
   const getToken = async () => {
@@ -61,6 +62,7 @@ const App = () => {
             
           </Routes>
     <Player/>
+    <Footer/>
       </div>
       </div>
 

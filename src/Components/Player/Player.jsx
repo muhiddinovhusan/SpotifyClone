@@ -31,7 +31,7 @@ const Player = ({ isPlaying }) => {
   }, []);
 
   return (
-    <div className='Player flex justify-center items-center'>
+    <div className='Player flex justify-center items-center max-lg:bottom-16'>
       {track ? (
         <audio id="audioElement" className='w-full' controls >
           <source src={track.track.preview_url} type='audio/mpeg'/>

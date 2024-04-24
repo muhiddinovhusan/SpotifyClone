@@ -6,27 +6,27 @@ import Header from './../Header/Header';
 import { saveToLocalStorage } from '../../app/like/LikeSlice';
 import useJumpIn from '../../hooks/useJumpIn';
 import useMadeForYou from './../../hooks/useMadeForYou copy';
-
+import play from '../../assets/images/Play_Greem Hover.png'
 const Main = () => {
 
   const playlist = usePlaylist();
-  
+
   const MadeForYou = useMadeForYou();
-console.log(MadeForYou)
+  console.log(MadeForYou)
   const recentPlay = useRecentPlayed();
   const JumpBackIn = useJumpIn();
-console.log(JumpBackIn)
+  console.log(JumpBackIn)
 
 
-const navigate = useNavigate();
-  const handleClick = (item,id) => {
+  const navigate = useNavigate();
+  const handleClick = (item, id) => {
     saveToLocalStorage('selectedPlaylist', item);
     navigate(`/tracks/${id}`);
   };
-  
 
 
-  
+
+
   return (
     <div className='Main '>
       <Header />
@@ -57,10 +57,13 @@ const navigate = useNavigate();
               <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6 ' >See All</h2>
             </div>
             <div className='grid grid-cols-4  gap-5   max-md:grid-cols-2 max-lg:grid-cols-3 '>
-              {playlist.slice(0,4).map((item,index) => (
-                <div  onClick={() =>handleClick(item, item.id)} key={index} className='card border hover:bg-[#272727]  w-full cursor-pointer max-md:w-full max-lg:w-full max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
-                  <div>
+              {playlist.slice(0, 4).map((item, index) => (
+                <div onClick={() => handleClick(item, item.id)} key={index} className='card border hover:bg-[#272727]  w-full cursor-pointer max-md:w-full max-lg:w-full max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
+                  <div className='relative'>
                     <img className='p-3 card-img max-sm:w-full max-md:p-8' src={item.images[0].url} alt="" />
+                    <button className='h-10 w-10 bg-[#1cb955] rounded-full shadow-xl absolute right-2 bottom-2 flex justify-center items-center cursor-auto duration-200 opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0'>
+                      <img className='' src={play} alt="" />
+                    </button >
                   </div>
                   <h2 className='text-white  font-semibold p-2  tracking-wide capitalize max-xl:p-3 max-md:p-3'>{item.name}</h2>
                   <p className='text-white p-2 line-clamp-3 text-sm  max-md:hidden   max-xl:hidden'>{item.description}</p>
@@ -76,8 +79,8 @@ const navigate = useNavigate();
               <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</h2>
             </div>
             <div className='grid grid-cols-4  gap-5   max-md:grid-cols-2 max-lg:grid-cols-3  '>
-              {recentPlay.slice(0,4).map((item,index) => (
-                <div  onClick={() =>handleClick(item, item.id)} key={index} className='card border  w-full hover:bg-[#272727] cursor-pointer max-md:w-full max-lg:w-full  max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
+              {recentPlay.slice(0, 4).map((item, index) => (
+                <div onClick={() => handleClick(item, item.id)} key={index} className='card border  w-full hover:bg-[#272727] cursor-pointer max-md:w-full max-lg:w-full  max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
                   <div className='  '>
                     <img className='p-3 card-img      ' src={item.images[0].url} alt="" />
                   </div>
@@ -95,8 +98,8 @@ const navigate = useNavigate();
               <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</h2>
             </div>
             <div className='grid grid-cols-4  gap-5   max-md:grid-cols-2 max-lg:grid-cols-3 '>
-              {JumpBackIn.slice(0,4).map((item,index) => (
-                <div  onClick={() =>handleClick(item, item.id)} key={index} className='card border  w-full cursor-pointer max-md:w-full max-lg:w-full max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
+              {JumpBackIn.slice(0, 4).map((item, index) => (
+                <div onClick={() => handleClick(item, item.id)} key={index} className='card border  w-full cursor-pointer max-md:w-full max-lg:w-full max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
                   <div>
                     <img className='p-3 card-img' src={item.images[0].url} alt="" />
                   </div>
@@ -114,8 +117,8 @@ const navigate = useNavigate();
               <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</h2>
             </div>
             <div className='grid grid-cols-4  gap-5   max-md:grid-cols-2 max-lg:grid-cols-3 '>
-              {MadeForYou.slice(0,4).map((item,index) => (
-                <div  onClick={() =>handleClick(item, item.id)} key={index} className='card border  w-full cursor-pointer max-md:w-full max-lg:w-full max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
+              {MadeForYou.slice(0, 4).map((item, index) => (
+                <div onClick={() => handleClick(item, item.id)} key={index} className='card border  w-full cursor-pointer max-md:w-full max-lg:w-full max-md:h-48 max-xl:w-full  max-xl:h-full max-lg:h-full shadow-white'>
                   <div>
                     <img className='p-3 card-img' src={item.images[0].url} alt="" />
                   </div>
