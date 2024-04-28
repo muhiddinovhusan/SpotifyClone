@@ -14,7 +14,7 @@ const Sidebar = () => {
       </div>
       
       <nav>
-        <Link to="/"  className='flex items-center text-white bg-[#282828] mx-2 px-4 py-2 rounded'>
+        <Link to="/"  className='flex items-center hover:text-white  mx-2 px-4 py-2 rounded'>
           <img src={homeicon} alt="" />
           <span className='ml-4 text-sm font-semibold '>Home</span>
         </Link>

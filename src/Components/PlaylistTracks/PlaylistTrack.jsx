@@ -24,7 +24,6 @@ const PlaylistTrack = () => {
   const dispatch = useDispatch();
 
   // const likeCart = loadFromLocalStorage("likeCart");
-  // console.log(selectedPlaylist);
   const likeCart = useSelector(state => state.like.likeCart)
 
   function formatDuration(duration_ms) {
@@ -49,7 +48,6 @@ const PlaylistTrack = () => {
       audioRef.current.pause();
     }
     setIsPlaying(!isPlaying);
-    // localStorage.setItem('selectedTrack', JSON.stringify(track));
     dispatch(addToselectedTrack(track))
     console.log(track)
   };
@@ -110,35 +108,33 @@ const PlaylistTrack = () => {
       </header>
 
       <div>
-        {playlistTracks.map((track, index) => {
-          const isTrackLiked = likeCart && likeCart.some(song => song.id === track.track.id);
-          return (
-            <div className='flex w-full items-center gap-4 p-3' key={index}>
-              <img className='cursor-pointer' onClick={() => togglePlay(track)} src={track.track.album.images[2].url} alt="" />
-              <div className='text-white '>
-                <h3>
-                  {track.track.name} - {track.track.artists.map(artist => artist.name).join(', ')}
+      {playlistTracks.map((track, index) => {
+  if (!track || !track.track) return null;
+  
+  const isTrackLiked = (likeCart || []).some(song => song.id === track.track.id);
+  
+  return (
+    <div className='flex w-full items-center gap-4 p-3' key={index}>
+      <img className='cursor-pointer' onClick={() => togglePlay(track)} src={track.track.album.images[2].url} alt="" />
+      <div className='text-white'>
+        <h3>
+          {track.track.name} - {track.track.artists.map(artist => artist.name).join(', ')}
+        </h3>
+        <audio ref={audioRef} onPause={pauseTrack} />
+      </div>
+      {isTrackLiked ? (
+        <div>
+          <img className='cursor-pointer' onClick={() => removeFromLike(track.track.id)} src={like} alt="" />
+        </div>
+      ) : (
+        <img className='cursor-pointer' onClick={() => addToLikeCartt(track.track)} src={unlike} alt="" />
+      )}
+      <span className='text-white'>{formatDuration(track.track.duration_ms)}</span>
+    </div>
+  );
+})}
 
-                </h3>
-                <audio ref={audioRef} onPause={pauseTrack} />
 
-              </div>
-
-              {isTrackLiked ? (
-                <div className=''>
-
-                  <img className='cursor-pointer ' onClick={() => removeFromLike(track.track.id)} src={like} alt="" />
-
-                </div>
-              ) : (
-                <img className='cursor-pointer' onClick={() => addToLikeCartt(track.track)} src={unlike} alt="" />
-
-              )}
-              <span className='text-white'>{formatDuration(track.track.duration_ms)}</span>
-
-            </div>
-          )
-        })}
       </div>
       <Player isPlaying={isPlaying} />
     </div>

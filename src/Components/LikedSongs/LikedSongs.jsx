@@ -7,11 +7,10 @@ import { useEffect, useRef, useState } from "react";
 const LikedSongs = () => {
   const dispatch = useDispatch()
   const likeCart = useSelector(state => state.like.likeCart)
-
+console.log(likeCart)
   const removeFromLike = (trackId) => {
     dispatch(removeFromLikedSongs(trackId));
   }
-  console.log(likeCart);
 
   function formatDuration(duration_ms) {
     const duration_s = duration_ms / 1000;
@@ -80,7 +79,7 @@ const LikedSongs = () => {
                 src={item.album.images[2].url}
                 alt=""
               />
-            )}      {console.log(item.duration_ms)}
+            )}      
                          <div  >
            {item.album && item.album.name && (
   <p>{item.album.name}</p>
