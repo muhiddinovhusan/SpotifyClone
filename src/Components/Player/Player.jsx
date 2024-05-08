@@ -6,7 +6,6 @@ const Player = ({ isPlaying }) => {
   const [audioElement, setAudioElement] = useState(null);
 
   const selectedTrack = useSelector(state => state.like.selectedTrack);
-  console.log(selectedTrack);
 
   useEffect(() => {
     const newAudioElement = document.createElement("audio");
@@ -25,22 +24,25 @@ const Player = ({ isPlaying }) => {
         audioElement.pause();
       }
     }
-  }, [isPlaying, selectedTrack, audioElement]);
+  }, [isPlaying , audioElement]);
 
+
+  
+  
   return (
-    <div className='Player flex justify-center items-center max-lg:bottom-16'>
-      {selectedTrack && selectedTrack.album && selectedTrack.album.images || selectedTrack && selectedTrack.track && selectedTrack.track.album && selectedTrack.track.album.images &&
+    <div className='Player flex justify-center items-center max-lg:bottom-14'>
+      { selectedTrack && selectedTrack.album && selectedTrack.album.images &&
   (
         <img
           className='w-20 h-full'
-          src={selectedTrack.track.album.images[0]?.url || selectedTrack.album.images[0]?.url}
+          src={ selectedTrack.album.images[0]?.url}
           alt=""
         />
       )}
 
       {selectedTrack ? (
         <audio  id="audioElement" className='w-full' controls >
-          <source src={selectedTrack.preview_url || selectedTrack.track.preview_url} type='audio/mpeg'/>
+          <source src={selectedTrack.preview_url } type='audio/mpeg'/>
         </audio>
       ) : (
         <p>No track selected</p>

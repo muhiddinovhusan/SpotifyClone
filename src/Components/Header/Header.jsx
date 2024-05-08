@@ -15,6 +15,8 @@ const Header = () => {
     const featuredPlaylist = usePlaylist();
 
     return (
+        <div className="">
+    
         <header className="text-white py-3 bg-gradient-to-b from-indigo-800 pt-3 px-5 pb-20  rounded-md ">
             <div className="top flex justify-between sticky top-0 z-20 max-md:hidden ">
                 <div className="left flex items-center gap-3  ">
@@ -55,6 +57,7 @@ const Header = () => {
                 </div>
             </div>
         </header>
+                    </div>
     )
 }
 

@@ -26,6 +26,7 @@ const App = () => {
         body: 'grant_type=client_credentials',
       });
       const data = await response.json();
+      console.log(data.access_token)
       localStorage.setItem('access_token', JSON.stringify(`${data.token_type} ${data.access_token}`));
     } catch (err) {
       console.log(err);
