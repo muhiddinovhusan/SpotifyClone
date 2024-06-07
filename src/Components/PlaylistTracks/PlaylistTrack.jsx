@@ -18,7 +18,6 @@ const PlaylistTrack = () => {
   const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
   const dispatch = useDispatch();
 
-  // const likeCart = loadFromLocalStorage("likeCart");
   const likeCart = useSelector(state => state.like.likeCart)
 
   function formatDuration(duration_ms) {

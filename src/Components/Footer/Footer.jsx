@@ -77,7 +77,7 @@ const Footer = () => {
         <p className=' font-semibold text-[#b3b3ad]'>Spotify</p>
       </Link>
       <div onClick={ handleLinkClick } className='p-2'>
-        <img src={LikeIcon} alt="" className='ml-4' />
+        <img src={LikeIcon} alt="" className='ml-2' />
         <h2 className='text-[#b3b3ad] text-xs'>Liked Songs</h2>
       </div>
     </div>

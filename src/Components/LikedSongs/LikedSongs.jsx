@@ -163,7 +163,7 @@ const LikedSongs = () => {
         </div>
 
       </div>
-      <div className="px-5 mt-10 font mb-24 flex flex-col gap-4  ">
+      <div className="px-5 mt-10 font mb-32 flex flex-col gap-4  ">
         {likeCart.length > 0 ? (likeCart.map((item, i) => (
           <div key={i} className="text-white w-full justify-between flex ">
             <div className="flex items-center gap-3">
