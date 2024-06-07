@@ -93,9 +93,9 @@ export const PlayerContent = () => {
     return (
         <div className={`sm:hidden ${PlayerContent ? 'w-full  z-[10]  font   top-0 left-0 h-full fixed  player-content  ' : ' hidden'}`}>
 
-            <div className='  max-sm:p-20   flex justify-center items-center'>
+            <div className='   p-14  flex justify-center '>
 
-                <img className='w-full  ' src={selectedTrack?.album?.images[0]?.url} alt="" />
+                <img className='w-full  h-72' src={selectedTrack?.album?.images[0]?.url} alt="" />
             </div>
            <div className=''>
 
