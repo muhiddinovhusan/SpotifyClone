@@ -93,13 +93,13 @@ export const PlayerContent = () => {
     return (
         <div className={`sm:hidden ${PlayerContent ? 'w-full  z-[10]  font   top-0 left-0 h-full fixed  player-content  ' : ' hidden'}`}>
 
-            <div className='  max-sm:p-20 mb-2  flex justify-center items-center'>
+            <div className='  max-sm:p-20   flex justify-center items-center'>
 
-                <img className='w-full  h-72' src={selectedTrack?.album?.images[0]?.url} alt="" />
+                <img className='w-full  ' src={selectedTrack?.album?.images[0]?.url} alt="" />
             </div>
            <div className=''>
 
-           <div className='flex flex-col justify-center items-center -mt-4  mb-4'>
+           <div className='flex flex-col justify-center  items-center -mt-4  mb-4'>
                 <h2 className='text-[#B3B3B3]'>
                     {selectedTrack?.name}
                 </h2>
@@ -151,7 +151,7 @@ export const PlayerContent = () => {
                 <span className='text-[#A6A6A6] text-sm'>{formatDuration(duration)}</span>
             </div>
 
-            <div className='flex justify-center items-center mt-4 gap-5 '>
+            <div className='flex justify-center items-center  gap-5 '>
                 <img src={Random} alt="" />
                 <img src={Prev} className='' alt="" />
                 <button className='' onClick={togglePlayPause}>
