@@ -23,7 +23,7 @@ const PlayerImage = () => {
     return (
         <div onClick={openPlayerContent} className={`${PlayerContent ? 'hidden' : 'bottom-[130px] fixed h-20 z-50 w-20 border cursor-pointer    sm:hidden border-red-300 text-white'}`}>
             <div className='relative'>
-                <img className=' ' src={selectedTrack.album.images[1].url} alt="" />
+                <img className=' ' src={selectedTrack?.album?.images[1]?.url} alt="" />
 
             </div>
 
