@@ -14,6 +14,10 @@ export const loadFromLocalStorage = (key) => {
 const initialState = {
     likeCart: loadFromLocalStorage("likeCart") ?? [],
     selectedTrack: loadFromLocalStorage("selectedTrack") ?? null,
+    isPlaying: false,
+    SidebarLeft: true,
+    SidebarRight: true,
+    PlayerContent: false
 };
 
 export const saveToLocalStorage = (key, value) => {
@@ -41,13 +45,35 @@ const likeSlice = createSlice({
             state.selectedTrack = action.payload;
             saveToLocalStorage("selectedTrack", state.selectedTrack);
         },
+        togglePlayTrue(state) {
+            state.isPlaying = !state.isPlaying;
+        },
+        pauseTrackFalse(state) {
+            state.isPlaying = false;
+        },
+        toggleSidebarLeftOpen(state) {
+            state.SidebarLeft = !state.SidebarLeft;
+        },
+        toggleSidebarLeftClose(state) {
+            state.SidebarLeft = false;
+        },
+        togglePlayerContentOpen(state) {
+            state.PlayerContent = !state.PlayerContent;
+        },
+        togglePlayerContentClose(state) {
+            state.PlayerContent = false;
+        },
+
+
+
+
     },
 });
 
 
- 
 
 
 
-export const { addToLikeCart, removeFromLikedSongs, addToselectedTrack } = likeSlice.actions;
+
+export const { addToLikeCart, removeFromLikedSongs, addToselectedTrack, pauseTrackFalse, togglePlayTrue, toggleSidebarLeftOpen, toggleSidebarLeftClose, togglePlayerContentOpen,togglePlayerContentClose } = likeSlice.actions;
 export const likeReducer = likeSlice.reducer;

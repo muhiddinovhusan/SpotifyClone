@@ -1,14 +1,15 @@
 .Main {
+   
    .card {
       cursor: pointer;
-
+     
       display: block;
-      background-color: #1b1b1b;
-      border-radius: 10px;
+      // background-color: #1b1b1b;
+      border-radius: 9px;
       overflow: hidden;
       transition: transform 0.3s ease;
       border: 0;
-       
+
    }
 
    .card h2 {
@@ -21,17 +22,24 @@
 
    .card-img {
       width: 100%;
-border-radius: 18px ;
+      border-radius: 6px;
+   }
+
+   .nav-dark {
+      background-color: inherit;
+      transition: background-color 0.4s ease;
    }
 }
 
+
 @media screen and (max-width:430px) {
    .Main {
-      width: 100%; 
+      width: 100%;
+
       .playlist {
 
          display: grid;
-         
+
          grid-template-columns: auto auto;
 
          .card {
@@ -44,11 +52,12 @@ border-radius: 18px ;
 
 @media screen and (max-width: 768px) {
 
-   .Main{
-      .playlist{
+   .Main {
+      .playlist {
          display: grid;
          grid-template-columns: auto auto auto;
-         .card{
+
+         .card {
             margin: auto;
             width: 245px;
          }

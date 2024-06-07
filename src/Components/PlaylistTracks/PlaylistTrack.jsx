@@ -5,19 +5,14 @@ import { Link } from 'react-router-dom';
 import unlike from '../../assets/images/Heart_Fill_XSS.svg'
 import like from '../../assets/images/Heart_Fill_XS.svg'
 
-import { addToLikeCart, addToselectedTrack, removeFromLikedSongs } from '../../app/like/LikeSlice';
+import { addToLikeCart, addToselectedTrack, pauseTrackFalse, removeFromLikedSongs, togglePlayTrue } from '../../app/like/LikeSlice';
 import './PlaylistTracks.scss'
 import { useRef, useState } from 'react';
 import Player from '../Player/Player';
+import { useAudio } from '../../context/AudioProvider';
+import { Clock } from '../../assets/images/Image';
 const PlaylistTrack = () => {
-  // const [selectedPlaylist, setSelectedPlaylist] = useState([]);
-
-  // useEffect(() => {
-  //   const track = loadFromLocalStorage("selectedPlaylist");
-  //   setSelectedPlaylist(track);
-  // }, [selectedPlaylist]); // 
-
-
+  const { playTrack, togglePlayPause } = useAudio();
 
   const selectedPlaylist = JSON.parse(localStorage.getItem('selectedPlaylist'));
   const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
@@ -37,24 +32,15 @@ const PlaylistTrack = () => {
 
   }
 
-  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
-
   const togglePlay = (track) => {
-    if (!isPlaying) {
-      audioRef.current.src = track.track.preview_url;
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-    setIsPlaying(!isPlaying);
+    togglePlayPause()
     dispatch(addToselectedTrack(track.track))
-    console.log(track)
   };
 
   const pauseTrack = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(pauseTrackFalse())
   };
 
   const addToLikeCartt = (track) => {
@@ -64,10 +50,10 @@ const PlaylistTrack = () => {
     dispatch(removeFromLikedSongs(trackId));
   }
 
-
+  const PlayerContent = useSelector(state => state.like.PlayerContent)
 
   return (
-    <div className='bg-zinc-950'>
+    <div className={`${PlayerContent ? 'hidden' : 'bg-[#121212]'}`}>
       <div style={{ backgroundColor: selectedPlaylist.primary_color || "green" }} className="top flex justify-between sticky top-0 z-20 max-md:hidden  w-full ">
         <div className="left flex items-center gap-3  ">
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
@@ -99,8 +85,8 @@ const PlaylistTrack = () => {
             <span className="uppercase font-semibold">Public playlist</span>
             <h1 className="capitalize font-bold text-7xl mt-7 mb-10 max-md:text-5xl max-sm:text-3xl ">{selectedPlaylist.name}</h1>
             <div className="flex flex-col gap-3">
-              <p className="font-semibold text-xl max-sm:hidden">Julia Wolf, ayokay, Khalid <span className="text-zinc-500 text-xl font-semibold ">and more</span></p>
-              <p className="font-semibold text-xl text-zinc-500  max-sm:hidden"><span className="text-white text-xl font-semibold">Made for you</span> | <span className="text-zinc-500 text-xl font-semibold">{playlistTracks.length} songs, 7hr 17 min</span></p>
+              <p className="font-semibold text-xl max-sm:hidden">{selectedPlaylist.description}<span className="text-zinc-500 text-xl font-semibold "> and more</span></p>
+              <p className="font-semibold text-xl text-zinc-500  max-sm:hidden"><span className="text-black text-xl font-semibold">Made for you</span> | <span className="text-zinc-500 text-xl font-semibold">{playlistTracks.length} songs, 7hr 17 min</span></p>
             </div>
           </div>
         </div>
@@ -156,34 +142,45 @@ const PlaylistTrack = () => {
 
           </button>
         </div>
-<div className='grid grid-cols-3 gap-10'>
+        <div className='w-full justify-between max-md:pr-6 pr-4 text-[#B3B3B3] border-b-2 pl-2 uppercase flex  border-zinc-500'>
+          <h1 className='text-base  w-[360px] max-md:w-32  flex '># Title</h1>
+          <h1 >Album</h1>
+          <h1 className='max-sm:hidden'>Data Added</h1>
 
-</div>
+
+          <Clock />
+
+
+        </div>
 
       </div>
 
-      <div className='px-5 mt-10 flex flex-col mb-10 gap-4'>
+      <div className='px-5  mt-10 flex flex-col mb-24   gap-4'>
         {playlistTracks.map((track, index) => {
           if (!track || !track.track) return null;
 
           const isTrackLiked = (likeCart || []).some(song => song.id === track.track.id);
 
           return (
-            <div className='text-white w-full  justify-between flex ' key={index}>
-              <div className='flex item-center gap-3'>
+            <div className='text-white w-full font   justify-between  flex ' key={index}>
+
+              <div className='flex  items-center gap-3'>
+                <h2 className='text-xl w-5  font-semibold mt-4'>{index + 1}</h2>
                 <div>
                   <img className='cursor-pointer rounded-md' width={60} height={60} onClick={() => togglePlay(track)} src={track.track.album.images[2].url} alt="" />
                 </div>
-                <div className='flex flex-col'>
-                  <span className='font-semibold hover:underline w-96 max-md:w-40 line-clamp-1'>{track.track.name}</span>
-                  <span className="text-zinc-500">{track.track.artists[0].name}</span>
+                <div className='flex flex-col w-52 max-sm:w-32  overflow-hidden'>
+                  <span className=' hover:underline  line-clamp-1'>{track.track.name}</span>
+                  <span className="text-zinc-500 line-clamp-1">{track.track.artists[0].name}</span>
 
                   <audio ref={audioRef} onPause={pauseTrack} />
                 </div>
               </div>
+              <div className='flex text-zinc-500 w-52 max-sm:w-20 '>
+                <span className=' line-clamp-1  '>{track.track.album.name}</span>
 
-              <span className="text-zinc-500 mt-1">{track.added_at.split("T")[0]}</span>
-              <div className='flex items-center -mt-8 gap-10'>
+              </div>
+              <div className='flex items-center w-24 max-sm:gap-2  -mt-8 gap-5'>
 
                 {isTrackLiked ? (
                   <div>
@@ -200,7 +197,6 @@ const PlaylistTrack = () => {
 
 
       </div>
-      <Player isPlaying={isPlaying} />
     </div>
   );
 

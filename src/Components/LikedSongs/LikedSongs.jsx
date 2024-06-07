@@ -1,14 +1,16 @@
 import { Bell, ChevronLeft, ChevronRight, Link } from "lucide-react"
-import { addToselectedTrack, loadFromLocalStorage, removeFromLikedSongs } from "../../app/like/LikeSlice";
+import { addToselectedTrack, loadFromLocalStorage, pauseTrackFalse, removeFromLikedSongs, togglePlayTrue } from "../../app/like/LikeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import like from '../../assets/images/Heart_Fill_XS.svg'
 import likedSongsIcon from '../../assets/images/Frame 42.png'
 import { useEffect, useRef, useState } from "react";
 import './LikedSongs.scss'
+import { Clock } from "../../assets/images/Image";
+import { useAudio } from "../../context/AudioProvider";
 const LikedSongs = () => {
   const dispatch = useDispatch()
   const likeCart = useSelector(state => state.like.likeCart)
-  console.log(likeCart)
+  const { playTrack, togglePlayPause } = useAudio();
   const removeFromLike = (trackId) => {
     dispatch(removeFromLikedSongs(trackId));
   }
@@ -23,23 +25,17 @@ const LikedSongs = () => {
     return `${minutes}:${formatted_seconds}`;
 
   }
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
-
   const togglePlay = (track) => {
-    if (!isPlaying) {
-      audioRef.current.src = track.preview_url;
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-    setIsPlaying(!isPlaying);
+    togglePlayPause()
     dispatch(addToselectedTrack(track))
   };
 
+
   const pauseTrack = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(pauseTrackFalse())
   };
   const navRef = useRef();
 
@@ -55,12 +51,13 @@ const LikedSongs = () => {
     }
   }, []);
 
+  const PlayerContent = useSelector(state => state.like.PlayerContent)
 
   return (
-    <div className="bg-zinc-950 ">
+    <div className={`${PlayerContent ? 'hidden' : "bg-zinc-950"}`}>
 
 
-      <div ref={navRef} className="top flex justify-between sticky  top-0 z-20 max-md:hidden bg-[#3730a3]    w-full ">
+      <div ref={navRef} className="top flex  justify-between sticky  top-0 z-20 max-md:hidden bg-[#3730a3]    w-full ">
         <div className="left flex items-center gap-3  ">
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
             <ChevronLeft color="white" className="mx-auto" size={26} />
@@ -100,6 +97,16 @@ const LikedSongs = () => {
 
 
       </header>
+      <div className='w-full justify-between max-md:pr-6 pr-4 text-[#B3B3B3] border-b-2 pl-2 uppercase flex  border-zinc-500'>
+        <h1 className='text-base  w-[360px] max-md:w-32  flex '># Title</h1>
+        <h1 >Album</h1>
+        <h1 className='max-sm:hidden'>Data Added</h1>
+
+
+        <Clock />
+
+
+      </div>
       <div className="top px-5">
         <div className="left flex items-center gap-5">
           <button>
@@ -156,10 +163,12 @@ const LikedSongs = () => {
         </div>
 
       </div>
-      <div className="px-5 mt-10 mb-20 flex flex-col gap-4  ">
+      <div className="px-5 mt-10 font mb-24 flex flex-col gap-4  ">
         {likeCart.length > 0 ? (likeCart.map((item, i) => (
           <div key={i} className="text-white w-full justify-between flex ">
             <div className="flex items-center gap-3">
+              <h2 className='text-xl w-5  font-semibold mt-4'>{i + 1}</h2>
+
               <div>
                 {item.album && item.album.images && item.album.images[2] && (
                   <img
@@ -171,22 +180,23 @@ const LikedSongs = () => {
                   />
                 )}
               </div>
-              <div className="flex flex-col">
-                {item.album && item.album.name && (
-                  <p className="font-semibold hover:underline w-96 max-md:w-40 line-clamp-1">{item.album.name}</p>
+              <div className="flex flex-col w-52 max-sm:w-32  overflow-hidden">
+                {item && item.name && (
+                  <p className=" hover:underline line-clamp-1">{item.name}</p>
                 )}
                 {item.album && item.album.artists && (
                   <p className="text-zinc-500">{item.album.artists[0].name}</p>
                 )}
               </div>
             </div>
-            {/* {item.album && item.album.artists && (
-            <span className="text-zinc-500 mt-1">{item.album.name}</span>
-            )} */}
+            <div className='flex text-zinc-500 w-52 max-sm:w-20 '>
+                <span className=' line-clamp-1  '>{item.album.name}</span>
+
+              </div>
             <audio ref={audioRef} onPause={pauseTrack} />
             <div className=" flex items-center -mt-6 gap-10 cursor-pointer ">
               <img onClick={() => removeFromLike(item.id)} src={like} alt="" />
-            <span className="">{formatDuration(item.duration_ms)}</span>
+              <span className="">{formatDuration(item.duration_ms)}</span>
             </div>
           </div>
         ))) : (<h1 className="text-white">You don`t have any liked songs yet</h1>)}
