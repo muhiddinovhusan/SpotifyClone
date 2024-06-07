@@ -103,7 +103,7 @@ export const PlayerContent = () => {
                 <h2 className='text-[#B3B3B3]'>
                     {selectedTrack?.name}
                 </h2>
-                <h2 className='text-xl'>
+                <h2 className='text-xl text-white'>
                     {selectedTrack?.album?.artists[0]?.name}
                 </h2>
 
