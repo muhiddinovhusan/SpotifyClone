@@ -15,7 +15,7 @@ import FullScreen from '../../assets/player/FullScreen_S.svg'
 import Queue from '../../assets/player/Queue_XS.svg'
 
 const Player = () => {
-  const { audioRef, isPlaying, selectedTrack, duration, setDuration, currentTime, togglePlayPause, setCurrentTime, volume, handleVolumeChange,reloadBtn } = useAudio();
+  const { audioRef, isPlaying, selectedTrack, duration, setDuration, currentTime, togglePlayPause, setCurrentTime, volume, handleVolumeChange, reloadBtn } = useAudio();
 
   const handleSeek = (e) => {
     if (audioRef.current) {
@@ -52,7 +52,8 @@ const Player = () => {
     return `${minutes}:${formatted_seconds}`;
   }
 
- 
+
+
 
 
 
@@ -60,28 +61,28 @@ const Player = () => {
   const PlayerContent = useSelector(state => state.like.PlayerContent)
 
   return (
-    <div className={`${PlayerContent ? 'hidden' : 'Player flex max-sm:h-[74px]  font max-md:bottom-14'}`}>
-  
+    <div className={`${selectedTrack ? "" : 'hidden'} ${PlayerContent ? 'hidden' : 'Player flex max-sm:h-[74px]  font max-md:bottom-14'}`}>
+
       <div className='w-1/4 max-sm:hidden  gap-3 flex items-center pl-4'>
-      
-      {selectedTrack && selectedTrack.album && selectedTrack.album.images &&
-        (
-          <img
-            className='w-[80px] h-[80px] rounded-md '
-            src={selectedTrack?.album?.images[0]?.url}
-            alt=""
-          />
-        )}
-   
-   <div className='w-40  '>
-    <h2 className='text-white line-clamp-1'>{selectedTrack?.name}</h2>
-    <h2 className=' text-[#B3B3B3]'>{selectedTrack?.album?.artists[0]?.name}</h2>
-   </div>
-    
+
+        {selectedTrack && selectedTrack.album && selectedTrack.album.images &&
+          (
+            <img
+              className='w-[80px] h-[80px] rounded-md '
+              src={selectedTrack?.album?.images[0]?.url}
+              alt=""
+            />
+          )}
+
+        <div className='w-40  '>
+          <h2 className='text-white line-clamp-1'>{selectedTrack?.name}</h2>
+          <h2 className=' text-[#B3B3B3]'>{selectedTrack?.album?.artists[0]?.name}</h2>
+        </div>
 
 
-     
-  
+
+
+
 
       </div>
       <div className='w-2/4 max-sm:w-full flex flex-col'>
@@ -103,7 +104,7 @@ const Player = () => {
               <source src={selectedTrack.preview_url} type='audio/mpeg' />
             </audio>
           ) : (
-            <p>No track selected</p>
+            ''
           )}
           <input
             className='range'
@@ -124,14 +125,14 @@ const Player = () => {
         <img className='max-md:hidden' src={Devices} alt="" />
         <img src={Volume} alt="" />
         <input
-      className='w-2/5 h-1'
-      type="range"
-      min="0"
-      max="1"
-      step="0.01"
-      value={volume}
-      onChange={(e) => handleVolumeChange(e.target.value)}
-    />
+          className='w-2/5 h-1'
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={(e) => handleVolumeChange(e.target.value)}
+        />
         <img src={FullScreen} alt="" />
       </div>
     </div>

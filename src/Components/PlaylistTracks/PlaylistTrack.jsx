@@ -31,10 +31,26 @@ const PlaylistTrack = () => {
 
   }
 
+  const goBack = () => {
+    window.history.back()
+  }
+  const goForward = () => {
+    window.history.forward()
+  }
+
   const audioRef = useRef(null);
   const togglePlay = (track) => {
     togglePlayPause()
     dispatch(addToselectedTrack(track.track))
+  };
+
+  const getRandomTrack = () => {
+    if (playlistTracks.length > 60) {
+      const randomIndex = Math.floor(Math.random() * playlistTracks.length);
+      dispatch(addToselectedTrack(playlistTracks[randomIndex].track))
+     dispatch(togglePlayTrue())
+     console.log(randomIndex)
+    }
   };
 
   const pauseTrack = () => {
@@ -56,10 +72,10 @@ const PlaylistTrack = () => {
       <div style={{ backgroundColor: selectedPlaylist.primary_color || "green" }} className="top flex justify-between sticky top-0 z-20 max-md:hidden  w-full ">
         <div className="left flex items-center gap-3  ">
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
-            <ChevronLeft color="white" className="mx-auto" size={26} />
+            <ChevronLeft onClick={goBack} color="white" className="mx-auto" size={26} />
           </button>
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
-            <ChevronRight color="white" className="mx-auto" size={26} />
+            <ChevronRight onClick={goForward} color="white" className="mx-auto" size={26} />
           </button>
         </div>
         <div className="right flex items-center gap-4">
@@ -92,7 +108,7 @@ const PlaylistTrack = () => {
       </header>
       <div className="top px-5">
         <div className="left flex items-center gap-5">
-          <button>
+          <button onClick={getRandomTrack}>
             <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g filter="url(#filter0_d_131_2989)">
                 <circle cx="52" cy="48" r="36" fill="#65D36E" />
@@ -154,7 +170,7 @@ const PlaylistTrack = () => {
 
       </div>
 
-      <div className='px-5  mt-10 flex flex-col mb-24   gap-4'>
+      <div className='px-5  mt-10 flex flex-col mb-36 gap-4'>
         {playlistTracks.map((track, index) => {
           if (!track || !track.track) return null;
 

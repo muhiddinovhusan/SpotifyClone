@@ -84,6 +84,13 @@ const Main = () => {
     }
   };
 
+  const goForward = () => {
+    window.history.forward()
+  }
+
+const goBack = () => {
+    window.history.back()
+  }
 
 
   return (
@@ -91,10 +98,10 @@ const Main = () => {
       <div ref={navRef} className="top bg-[#3730a3] flex justify-between sticky top-0 z-20 max-md:hidden ">
         <div className="left flex items-center gap-3  ">
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
-            <ChevronLeft color="white" className="mx-auto" size={26} />
+            <ChevronLeft onClick={goBack} color="white" className="mx-auto" size={26} />
           </button>
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
-            <ChevronRight color="white" className="mx-auto" size={26} />
+            <ChevronRight onClick={goForward} color="white" className="mx-auto" size={26} />
           </button>
         </div>
         <div className="right flex items-center gap-4">
