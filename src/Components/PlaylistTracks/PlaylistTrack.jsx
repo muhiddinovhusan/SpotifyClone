@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 import unlike from '../../assets/images/Heart_Fill_XSS.svg'
 import like from '../../assets/images/Heart_Fill_XS.svg'
 
-import { addToLikeCart, addToselectedTrack, pauseTrackFalse, removeFromLikedSongs, togglePlayTrue } from '../../app/like/LikeSlice';
+import { addToLikeCart, addToselectedTrack, loadFromLocalStorage, pauseTrackFalse, removeFromLikedSongs, togglePlayTrue } from '../../app/like/LikeSlice';
 import './PlaylistTracks.scss'
 import { useRef, useState } from 'react';
 import Player from '../Player/Player';
 import { useAudio } from '../../context/AudioProvider';
 import { Clock } from '../../assets/images/Image';
 const PlaylistTrack = () => {
-  const { playTrack, togglePlayPause } = useAudio();
+  const {  togglePlayPause } = useAudio();
 
-  const selectedPlaylist = JSON.parse(localStorage.getItem('selectedPlaylist'));
+  const selectedPlaylist = loadFromLocalStorage('selectedPlaylist');
   const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
   const dispatch = useDispatch();
 
