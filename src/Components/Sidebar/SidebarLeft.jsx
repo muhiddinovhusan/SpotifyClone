@@ -14,10 +14,8 @@ const dispatch = useDispatch();
     setActive(clickedItem);
   };
   const SidebarLeft = useSelector(state => state.like.SidebarLeft);
-  console.log(SidebarLeft);
 
 
-  console.log(active)
   const openCloseSidebar = () => {
     if(SidebarLeft){
 dispatch(toggleSidebarLeftClose())

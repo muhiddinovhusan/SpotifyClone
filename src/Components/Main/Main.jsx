@@ -128,7 +128,7 @@ const goBack = () => {
               <div>
                 <h2 className='text-2xl font-semibold hover:underline capitalize text-white '>Top Mixes</h2>
               </div>
-              <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6 cursor-pointer' >See All</h2>
+              <Link to='/category/top-mixes' className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6 cursor-pointer' >See All</Link>
             </div>
 
 
@@ -149,7 +149,7 @@ const goBack = () => {
               <div>
                 <h2 className='text-2xl font-semibold hover:underline capitalize text-white'>Recent Played</h2>
               </div>
-              <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</h2>
+              <Link  to='/category/recent-played' className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</Link>
             </div>
 
             <div className={`grid gap-8 ${isVerySmallScreen ? 'grid-cols-2' : isSmallScreen ? 'grid-cols-3' : SidebarLeft ? 'grid-cols-4' : 'max-lg:grid-cols-4 max-md:grid-cols-2 grid-cols-5'} max-sm:grid-cols-2 max-md:grid-cols-3 `}>
@@ -168,7 +168,7 @@ const goBack = () => {
               <div>
                 <h2 className='text-2xl font-semibold hover:underline capitalize text-white'> Jump Back In</h2>
               </div>
-              <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</h2>
+              <Link to='/category/jump-back-in' className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</Link>
             </div>
             <div className={`grid gap-8 ${isVerySmallScreen ? 'grid-cols-2' : isSmallScreen ? 'grid-cols-3' : SidebarLeft ? 'grid-cols-4' : 'max-lg:grid-cols-4 max-md:grid-cols-2 grid-cols-5'} max-sm:grid-cols-2 max-md:grid-cols-3 `}>
               {
@@ -182,7 +182,7 @@ const goBack = () => {
           <div className=''>
             <div className='flex justify-between items-end mb-[18px]'>
               <div>
-                <h2 className='text-2xl font-semibold hover:underline capitalize text-white'>Made For You</h2>
+                <Link to='/category/made-for-you' className='text-2xl font-semibold hover:underline capitalize text-white'>Made For You</Link>
               </div>
               <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</h2>
             </div>
@@ -193,7 +193,6 @@ const goBack = () => {
                 ))
               }
             </div>
-            {/* <MainCards category={MadeForYou} play={play}/> */}
           </div>
         </div>
       </div>

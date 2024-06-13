@@ -48,7 +48,6 @@ const PlaylistTrack = () => {
       const randomIndex = Math.floor(Math.random() * playlistTracks.length);
       dispatch(addToselectedTrack(playlistTracks[randomIndex].track))
      dispatch(togglePlayTrue())
-     console.log(randomIndex)
     }
   };
 

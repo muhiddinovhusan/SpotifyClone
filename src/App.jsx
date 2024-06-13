@@ -16,6 +16,7 @@ import SidebarLeft from './Components/Sidebar/SidebarLeft';
 import SidebarRight from './Components/Sidebar/SidebarRight';
 import { AudioProvider } from './context/AudioProvider';
 import PlayerImage, { PlayerContent } from './Components/PlayerImage/PlayerImage';
+import PlaylistsCategory from './Components/PlaylistCategory/PlaylistsCategory';
 
 const App = () => {
   const getToken = async () => {
@@ -62,10 +63,10 @@ const App = () => {
                   <Route path='/' element={<Main />} />
                   <Route path='/tracks/:id' element={<PlaylistTrack />} />
                   <Route path='/likedSongs' element={<LikedSongs />} />
-
+                  <Route path='/category/:category' element={<PlaylistsCategory />} />
                 </Routes>
                 <Player />
-                <PlayerContent/>
+                <PlayerContent />
                 <PlayerImage />
                 <Footer />
 
