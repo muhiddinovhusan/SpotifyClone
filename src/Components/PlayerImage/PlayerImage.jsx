@@ -12,7 +12,8 @@ import Devices from '../../assets/player/Devices_XS.svg'
 import FullScreen from '../../assets/player/FullScreen_S.svg'
 import Queue from '../../assets/player/Queue_XS.svg'
 import './PlayerContent.scss'
-import { togglePlayerContentClose, togglePlayerContentOpen } from '../../app/like/LikeSlice'
+import { addToselectedTrack, loadFromLocalStorage, togglePlayTrue, togglePlayerContentClose, togglePlayerContentOpen } from '../../app/like/LikeSlice'
+import useTracks from '../../hooks/useTracks'
 const PlayerImage = () => {
     const { selectedTrack } = useAudio()
     const PlayerContent = useSelector(state => state.like.PlayerContent)
@@ -90,8 +91,21 @@ export const PlayerContent = () => {
         }
     }, []);
 
+
+    const selectedPlaylist = loadFromLocalStorage('selectedPlaylist');
+    const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
+
+  
+    const getRandomTrack = () => {
+      if (playlistTracks.length > 60) {
+        const randomIndex = Math.floor(Math.random() * playlistTracks.length);
+        dispatch(addToselectedTrack(playlistTracks[randomIndex].track))
+        dispatch(togglePlayTrue())
+        console.log(randomIndex)
+      }
+    };
     return (
-        <div className={`sm:hidden ${PlayerContent ? 'w-full  z-[10]  font   top-0 left-0 h-full fixed  player-content  ' : ' hidden'}`}>
+        <div className={`${selectedTrack ? "" : 'hidden'}sm:hidden ${PlayerContent ? 'w-full  z-[10]  font   top-0 left-0 h-full fixed  player-content  ' : ' hidden'}`}>
 
             <div className='   p-14  flex justify-center '>
 
@@ -136,7 +150,7 @@ export const PlayerContent = () => {
                         <source src={selectedTrack.preview_url} type='audio/mpeg' />
                     </audio>
                 ) : (
-                    <p>No track selected</p>
+                    ''
                 )}
                 <input
                     className='range'
@@ -152,7 +166,7 @@ export const PlayerContent = () => {
             </div>
 
             <div className='flex justify-center items-center  gap-5 '>
-                <img src={Random} alt="" />
+                <img src={Random} onClick={getRandomTrack} className='cursor-pointer' alt="" />
                 <img src={Prev} className='' alt="" />
                 <button className='' onClick={togglePlayPause}>
                     {isPlaying ? <img className='' src={Pause} alt="" /> : <img className='' src={Play} alt="" />}
