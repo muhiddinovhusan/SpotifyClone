@@ -54,13 +54,13 @@ const Footer = () => {
 
   return (
     <div className='fixed md:hidden h-16 bg-[#000]  w-full pt-1 -bottom-1 grid grid-cols-5 z-50  '>
-      <div onClick={handleLinkClick1} className=' pl-1  text-[11px]'>
+      <div onClick={handleLinkClick1} className=' pl-1  text-[11px] cursor-pointer'>
 
         <img className='pl-2 p-1 ' src={homeicon} alt="" />
 
         <p className='pl-1  font-semibold text-[#b3b3ad]'>Главная</p>
       </div>
-      <div onClick={handleLinkClick1} to='' className='w-20 text-[12px]'>
+      <div onClick={handleLinkClick1} to='' className='w-20 text-[12px] cursor-pointer'>
         <img className='pl-2 p-1' src={searchicon} alt="" />
         <p className='ml-1  font-semibold  text-[#b3b3ad]'>Поиск</p>
       </div>
@@ -76,7 +76,7 @@ const Footer = () => {
         </div>
         <p className=' font-semibold text-[#b3b3ad]'>Spotify</p>
       </Link>
-      <div onClick={ handleLinkClick } className='p-2'>
+      <div onClick={ handleLinkClick } className='p-2 cursor-pointer'>
         <img src={LikeIcon} alt="" className='ml-2' />
         <h2 className='text-[#b3b3ad] text-xs'>Liked Songs</h2>
       </div>
