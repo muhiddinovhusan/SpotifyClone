@@ -182,9 +182,9 @@ const goBack = () => {
           <div className=''>
             <div className='flex justify-between items-end mb-[18px]'>
               <div>
-                <Link to='/category/made-for-you' className='text-2xl font-semibold hover:underline capitalize text-white'>Made For You</Link>
+                <h2 className='text-2xl font-semibold hover:underline capitalize text-white'>Made For You</h2>
               </div>
-              <h2 className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</h2>
+              <Link  to='/category/made-for-you' className='uppercase text-[16px] tracking-widest font-semibold hover:underline text-[#b3b3b3] leading-6'>See All</Link>
             </div>
             <div className={`grid gap-8 mb-40 ${isVerySmallScreen ? 'grid-cols-2' : isSmallScreen ? 'grid-cols-3' : SidebarLeft ? 'grid-cols-4' : 'max-lg:grid-cols-4 max-md:grid-cols-2 grid-cols-5'} max-sm:grid-cols-2 max-md:grid-cols-3 `}>
               {

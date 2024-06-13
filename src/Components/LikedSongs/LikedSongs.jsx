@@ -52,7 +52,12 @@ const LikedSongs = () => {
   }, []);
 
   const PlayerContent = useSelector(state => state.like.PlayerContent)
-
+  const goBack = () => {
+    window.history.back()
+}
+const goForward = () => {
+    window.history.forward()
+}
   return (
     <div className={`${PlayerContent ? 'hidden' : "bg-zinc-950"}`}>
 
@@ -60,10 +65,10 @@ const LikedSongs = () => {
       <div ref={navRef} className="top flex  justify-between sticky  top-0 z-20 max-md:hidden bg-[#3730a3]    w-full ">
         <div className="left flex items-center gap-3  ">
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
-            <ChevronLeft color="white" className="mx-auto" size={26} />
+            <ChevronLeft onClick={goBack} color="white" className="mx-auto" size={26} />
           </button>
           <button className="bg-zinc-800 p-1 flex justify-center items-center transition-all rounded-full hover:scale-110">
-            <ChevronRight color="white" className="mx-auto" size={26} />
+            <ChevronRight onClick={goForward} color="white" className="mx-auto" size={26} />
           </button>
         </div>
         <div className="right flex items-center gap-4">
@@ -81,7 +86,7 @@ const LikedSongs = () => {
       <header className='text-black py-3 bg-gradient-to-b from-indigo-800  pt-3 px-5 pb-20  '>
 
 
-        <button className=' xl:hidden lg:hidden md:hidden' > back</button>
+        <button onClick={goBack} className=' xl:hidden lg:hidden md:hidden' > back</button>
         <div className="bottom mt-20 flex items-end gap-6">
           <div className="image">
             <img src={likedSongsIcon} alt="" className="rounded-xl" />

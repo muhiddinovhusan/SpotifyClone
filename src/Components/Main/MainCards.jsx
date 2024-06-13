@@ -26,7 +26,7 @@ const MainCards = ({key, item , play}) => {
                     </button >
                   </div>
                   <div className=''>
-                  <h2 className='text-white  w-40 font-semibold p-2 max-md:pb-2 max-md:p-0   tracking-wide capitalize max-xl:p-3 max-md:pl-8'>{item.name}</h2>
+                  <h2 className='text-white  w-40 font-semibold p-2 max-sm:pl-2 max-md:pb-2 max-md:p-0 max-sm:w-32  tracking-wide capitalize max-xl:p-3 max-md:pl-8'>{item.name}</h2>
                    <p className='text-white pb-1 pl-2 line-clamp-1 text-sm  max-md:hidden max-xl:hidden'>{item.description}</p>
                   </div>
 
