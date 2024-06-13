@@ -86,7 +86,7 @@ const goForward = () => {
       <header className='text-black py-3 bg-gradient-to-b from-indigo-800  pt-3 px-5 pb-20  '>
 
 
-        <button onClick={goBack} className=' xl:hidden lg:hidden md:hidden' > back</button>
+        <button onClick={goBack} className=' xl:hidden lg:hidden md:hidden' > <i className="fa-solid fa-arrow-left fa-xl"></i></button>
         <div className="bottom mt-20 flex items-end gap-6">
           <div className="image">
             <img src={likedSongsIcon} alt="" className="rounded-xl" />
