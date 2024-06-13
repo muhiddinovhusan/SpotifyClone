@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Player.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { pauseTrackFalse, togglePlayTrue } from '../../app/like/LikeSlice';
+import { addToselectedTrack, pauseTrackFalse, togglePlayTrue } from '../../app/like/LikeSlice';
 import { useAudio } from '../../context/AudioProvider';
 import Prev from '../../assets/player/Property 1=Prev_S_Hover.svg'
 import Next from '../../assets/player/Property 1=Next_S_Hover.svg'
@@ -16,7 +16,7 @@ import Queue from '../../assets/player/Queue_XS.svg'
 
 const Player = () => {
   const { audioRef, isPlaying, selectedTrack, duration, setDuration, currentTime, togglePlayPause, setCurrentTime, volume, handleVolumeChange, reloadBtn } = useAudio();
-
+  const dispatch = useDispatch()
   const handleSeek = (e) => {
     if (audioRef.current) {
       const seekTime = e.target.value;
@@ -52,9 +52,17 @@ const Player = () => {
     return `${minutes}:${formatted_seconds}`;
   }
 
+  const selectedPlaylist = loadFromLocalStorage('selectedPlaylist');
+  const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
 
-
-
+  const getRandomTrack = () => {
+    if (playlistTracks.length > 60) {
+      const randomIndex = Math.floor(Math.random() * playlistTracks.length);
+      dispatch(addToselectedTrack(playlistTracks[randomIndex].track))
+      dispatch(togglePlayTrue())
+      console.log(randomIndex)
+    }
+  };
 
 
 
@@ -87,7 +95,7 @@ const Player = () => {
       </div>
       <div className='w-2/4 max-sm:w-full flex flex-col'>
         <div className='flex justify-center items-center gap-5 h-3/5'>
-          <img src={Random} alt="" />
+          <img onClick={getRandomTrack} src={Random} alt="" />
           <img src={Prev} className='' alt="" />
           <button className='' onClick={togglePlayPause}>
             {isPlaying ? <img className='' src={Pause} alt="" /> : <img className='' src={Play} alt="" />}

@@ -8,7 +8,6 @@ import like from '../../assets/images/Heart_Fill_XS.svg'
 import { addToLikeCart, addToselectedTrack, loadFromLocalStorage, pauseTrackFalse, removeFromLikedSongs, togglePlayTrue } from '../../app/like/LikeSlice';
 import './PlaylistTracks.scss'
 import { useRef, useState } from 'react';
-import Player from '../Player/Player';
 import { useAudio } from '../../context/AudioProvider';
 import { Clock } from '../../assets/images/Image';
 const PlaylistTrack = () => {
@@ -28,7 +27,6 @@ const PlaylistTrack = () => {
 
     const formatted_seconds = seconds.toString().padStart(2, "0");
     return `${minutes}:${formatted_seconds}`;
-
   }
 
   const goBack = () => {
