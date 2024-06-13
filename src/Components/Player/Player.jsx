@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Player.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToselectedTrack, pauseTrackFalse, togglePlayTrue } from '../../app/like/LikeSlice';
+import { addToselectedTrack, loadFromLocalStorage, pauseTrackFalse, togglePlayTrue } from '../../app/like/LikeSlice';
 import { useAudio } from '../../context/AudioProvider';
 import Prev from '../../assets/player/Property 1=Prev_S_Hover.svg'
 import Next from '../../assets/player/Property 1=Next_S_Hover.svg'
@@ -13,6 +13,7 @@ import Volume from '../../assets/player/Volume_XS.svg'
 import Devices from '../../assets/player/Devices_XS.svg'
 import FullScreen from '../../assets/player/FullScreen_S.svg'
 import Queue from '../../assets/player/Queue_XS.svg'
+import useTracks from '../../hooks/useTracks';
 
 const Player = () => {
   const { audioRef, isPlaying, selectedTrack, duration, setDuration, currentTime, togglePlayPause, setCurrentTime, volume, handleVolumeChange, reloadBtn } = useAudio();
