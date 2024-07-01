@@ -133,7 +133,7 @@ const goBack = () => {
 
 
 
-            <div className={`grid  max-sm:gap-4 gap-8 ${isVerySmallScreen ? 'overflow-x-scroll' : isSmallScreen ? 'grid-cols-3' : SidebarLeft ? 'grid-cols-4' : 'max-lg:grid-cols-4 max-md:grid-cols-2 grid-cols-5'} max-sm:grid-cols-2 max-md:grid-cols-3 `}>
+            <div className={`grid  max-sm:gap-4 gap-8 ${isVerySmallScreen ? 'grid-cols-2' : isSmallScreen ? 'grid-cols-3' : SidebarLeft ? 'grid-cols-4' : 'max-lg:grid-cols-4 max-md:grid-cols-2 grid-cols-5'}  `}>
 
               {
                 getMappedPlaylist(mainPlaylist).map((item, index) => (
