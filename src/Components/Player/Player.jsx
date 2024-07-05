@@ -95,7 +95,7 @@ const Player = () => {
       </div>
       <div className='w-2/4 max-sm:w-full flex flex-col'>
         <div className='flex justify-center items-center gap-5 h-3/5'>
-          <img onClick={getRandomTrack} className='cursor-pointer' src={Random} alt="" />d
+          <img onClick={getRandomTrack} className='cursor-pointer' src={Random} alt="" />
           <img src={Prev} className='' alt="" />
           <button className='' onClick={togglePlayPause}>
             {isPlaying ? <img className='' src={Pause} alt="" /> : <img className='' src={Play} alt="" />}
