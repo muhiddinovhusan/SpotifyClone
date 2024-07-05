@@ -97,7 +97,7 @@ export const PlayerContent = () => {
 
   
     const getRandomTrack = () => {
-      if (playlistTracks.length > 60) {
+      if (playlistTracks.length > 0) {
         const randomIndex = Math.floor(Math.random() * playlistTracks.length);
         dispatch(addToselectedTrack(playlistTracks[randomIndex].track))
         dispatch(togglePlayTrue())

@@ -44,8 +44,7 @@ const Player = () => {
 
 
   function formatDuration(duration) {
-    if (isNaN(duration)) return "0:00";
-    if (duration > 1000) return "0:00"
+    if (isNaN(duration) || duration > 1000) return "0:00";
     const minutes = Math.floor(duration / 60);
     const seconds = Math.floor(duration % 60);
 
@@ -57,11 +56,11 @@ const Player = () => {
   const playlistTracks = useTracks(selectedPlaylist ? selectedPlaylist.id : null);
 
   const getRandomTrack = () => {
-    if (playlistTracks.length > 60) {
+    if (playlistTracks.length > 0) {
       const randomIndex = Math.floor(Math.random() * playlistTracks.length);
-      dispatch(addToselectedTrack(playlistTracks[randomIndex].track))
-      dispatch(togglePlayTrue())
-      console.log(randomIndex)
+      dispatch(addToselectedTrack(playlistTracks[randomIndex].track));
+      dispatch(togglePlayTrue());
+      console.log(randomIndex);
     }
   };
 
@@ -96,7 +95,7 @@ const Player = () => {
       </div>
       <div className='w-2/4 max-sm:w-full flex flex-col'>
         <div className='flex justify-center items-center gap-5 h-3/5'>
-          <img onClick={getRandomTrack} className='cursor-pointer' src={Random} alt="" />
+          <img onClick={getRandomTrack} className='cursor-pointer' src={Random} alt="" />d
           <img src={Prev} className='' alt="" />
           <button className='' onClick={togglePlayPause}>
             {isPlaying ? <img className='' src={Pause} alt="" /> : <img className='' src={Play} alt="" />}

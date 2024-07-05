@@ -79,11 +79,12 @@ export const AudioProvider = ({ children }) => {
     };
 
     const playNewTrack = (track) => {
-        audioRef.current.load();
+        if (audioRef.current.src !== track.preview_url) {
+            audioRef.current.load();
+        }
         if (isPlaying) {
             audioRef.current.play();
         }
-
     };
 
     useEffect(() => {
